@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta name="viewport" content="width=932" >
+  <meta name="MobileOptimized" content="932" >
+  <meta name="generator" content="yeah的札记">
+  <title>正则表达式的学习</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/awe.css">
+  <link rel="stylesheet" type="text/css" href="/css/social-likes.css">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/js/imgLiquid-min.js"></script>
+  <script src="/js/social-likes.min.js"></script>
+</head>
+
+<body>
+  <div class="main-container">
+    
+
+<div class="box profile">
+  <div class="heading" style="background: #3e5354 url(/images/bg-heading.jpg) no-repeat;">
+    <div class="profile-img">
+      <a href="//kywk.github.io/"><img src="/images/img-profile.jpg" width="154" height="150" alt="image description"></a>
+    </div>
+    <strong class="user"><a href="/">yeah的札记</a></strong>
+    <span class="locate">Taiwan</span>
+  </div>
+  <div class="setting">
+    <a href="//kywk.github.io/" class="btn-profile">Profile</a>
+    <a href="/" class="btn-photos">Photos</a>
+    <a href="/" class="btn-follow">Follow me</a>
+  </div>
+</div>
+
+    
+<div class="two-columns post-page">
+  <div class="content">
+
+    <div class="post box nocover">
+      <em class="date"><span>18</span>Dec</em>
+      <h2 class="post-title"><a href="/2015/12/18/正则表达式的学习/">正则表达式的学习</a></h2>
+      <div class="post-content"><p>创建时间：2015/12/10</p>
+<p>修改时间：</p>
+<hr>
+<p>先推荐几个学习正则表达式的好的网址：</p>
+<ul>
+<li><p><a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="external">维基百科的正则表达式</a></p>
+</li>
+<li><p><a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">正则表达式30分钟入门教程</a></p>
+</li>
+<li><p><a href="http://www.runoob.com/regexp/regexp-syntax.html" target="_blank" rel="external">菜鸟教程</a></p>
+</li>
+<li><p><a href="https://regularexp.wordpress.com/" target="_blank" rel="external">正则表达式的用例</a></p>
+</li>
+<li><p><a href="https://mengzhuo.org/regex/" target="_blank" rel="external">一个在线正则验证器</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="1-__u57FA_u672C_u8BED_u6CD5"><a href="#1-__u57FA_u672C_u8BED_u6CD5" class="headerlink" title="1. 基本语法"></a>1. 基本语法</h3><p>一个正则表达式就被称为一种模式 （ pattern ），用来匹配符合该模式的字符串。</p>
+<ul>
+<li><p>选择</p>
+<p>| 竖直分隔符表示选择。例如 “gray” | “gray” 可以表示是 “gray” 还是 “grey” .</p>
+</li>
+<li><p>数量限定符</p>
+<p>数量限定符用来规定前面的字符出现的次数，常用的数量限定符有 “+” 、 “？” 、 “*” ,当然如果字符后面没有数量限定符的话，那么就表示字符只出现一次(这好像是废话呀！)</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>“+“ 表示字符至少出现一次，也就是出现一次或多次。比如说： “gra+y” 则可以匹配 “gray” 、 “graay” 、 “graaaaay” ……</li>
+<li>“?” 表示字符至多出现一次，也就是出现零次或一次。例如： “gra?y” 则可以匹配 “gry” 、 “gray” （这就没有……了，只存在这两种）</li>
+<li>“*“ 表示字符可以出现零次、一次或多次。其实，如果有了解过 <strong>闭包</strong> 这个概览的话，那么 “*” 就表示是字符集合的 <a href="https://zh.wikipedia.org/wiki/%E9%97%AD%E5%8C%85_(%E6%95%B0%E5%AD%A6" target="_blank" rel="external">闭包</a>)  。</li>
+</ul>
+</blockquote>
+<ul>
+<li>匹配</li>
+</ul>
+<p>圆括号用来定义操作符的范围和优先度。比如说: “gr(a|e)y” == “gray|grey” , “gr(ae?|b)y” == “gr(a|ae|b)y”</p>
+<p> <strong>上面讲到了”*“这个数量限定符号，我们需要跟模式匹配的”*“分开</strong> 通常我们会用到模式匹配的地方，比如说: “name_<em>.xml” ，表示所有带 “name_“ 的 xml 文件，匹配的可以有 “name_abcd.xml” 、 “name_abcdefg.xml” 、等等。在这里 “\</em>“ 就不是数量限定的意思，而是替代的意思，在上面的例子中 “*” 就可以替代 “abcd” 、”abcdefg” ……</p>
+<p>讲了这么多，可能我们大概能了解到“正则表达式”是个什么东东了。也就是用多种元字符和规定的运算符组成的小的表达式来表示更大、更复杂的字符串。</p>
+<h3 id="2-_u5B57_u7B26"><a href="#2-_u5B57_u7B26" class="headerlink" title="2.字符"></a>2.字符</h3><p>下面，我们就要学习一下表达式中的字符，正则表达式就是由这次字符组合而成。正则表达式中包含：普通字符和特殊字符（我的理解就是相当于数学表达式中的运算字符）。</p>
+<p>特殊字符就是由特殊含义的字符，例如限定符号、定位符……。当在匹配特殊字符的时候，要先对特殊字符进行转义。例如 “a*?” 就表示找 ‘a’ 后面有零个或者一个’*’的字符串。</p>
+<h4 id="2-1__u666E_u901A_u5B57_u7B26"><a href="#2-1__u666E_u901A_u5B57_u7B26" class="headerlink" title="2.1 普通字符"></a>2.1 普通字符</h4><p>普通字符就是常见的大小写字母、数字和标点符号，当然还有一些其它的字符(就是非打印字符、特殊字符、限定符、定位符的其它字符，唉！理解就好。)。</p>
+<h4 id="2-2__u975E_u6253_u5370_u5B57_u7B26"><a href="#2-2__u975E_u6253_u5370_u5B57_u7B26" class="headerlink" title="2.2 非打印字符"></a>2.2 非打印字符</h4><p>非打印字符，大多是一些转义字符，带有转义符号 “\” 。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\cx</td>
+<td style="text-align:center">匹配由x指明的控制字符。比如 \cM 就匹配Control-M或则是转义符.x只能是大小写字母，否则会将c看作是一个普通字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\f</td>
+<td style="text-align:center">匹配一个换页符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:center">匹配一个换行符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\s</td>
+<td style="text-align:center">匹配一个空白符，包括空格、制表符、换页符等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">\S</td>
+<td style="text-align:center">匹配一个非空白符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:center">匹配一个制表符。</td>
+</tr>
+<tr>
+<td style="text-align:center">\v</td>
+<td style="text-align:center">匹配一个垂直制表符。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-3__u9650_u5B9A_u7B26"><a href="#2-3__u9650_u5B9A_u7B26" class="headerlink" title="2.3 限定符"></a>2.3 限定符</h4><p>限定符表示正则表达式中的某个组件必须出现多少次才能满足匹配。除了基本语法中介绍的三种数量限定符 ‘*’ 、’+’ 、’?’ 外（大家应该还记得这三个符号的意思吧？），还有三种方式。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">{n}</td>
+<td style="text-align:center">n是一个非负整数。匹配确定的n次。例如： “fo{2}” 表示 “foop” , 而不能匹配其它。</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,}</td>
+<td style="text-align:center">n是一个非负整数。匹配 n 次及 n 次以上。例如： “fo{2,}p” 可以匹配 “foop” 、”fooop” 、”foooop”……而不能匹配 “fop”。</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,m}</td>
+<td style="text-align:center">n 和 m 都是非负整数,且 n &lt; m 。表示匹配至少 n 次，至多 m 次。</td>
+</tr>
+</tbody>
+</table>
+<p><em>值得注意的是：</em> <strong>‘?’ 、’+’ 、’*’ 表示的都是“贪婪”匹配，也就是会尽可能多的匹配，只有在它们的后面加上’?’，才能变成非贪婪匹配或者是最小匹配</strong></p>
+<h4 id="2-4__u5B9A_u4F4D_u7B26"><a href="#2-4__u5B9A_u4F4D_u7B26" class="headerlink" title="2.4 定位符"></a>2.4 定位符</h4></div>
+
+      <div class="bottom-panel">
+        <ul class="social-likes" data-url="/2015/12/18/正则表达式的学习/">
+          <li class="facebook" title="like"></li>
+          <li class="twitter" title="twitte"></li>
+          <li class="plusone" title="google"></li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="widgetarea">
+
+    
+    
+<div class="tags widget">
+  <h3 class="title">Tags</h3>
+  <div style="text-align:center">
+    
+    <a class="button" href="/tags/学习笔记/">学习笔记</a>
+    
+  </div>
+  
+</div>
+
+
+<div class="tagcloud" id="fbox-tagcloud" style="margin:10px; display:none; overflow: hidden"><a href="/tags/学习笔记/" style="font-size: 24px;">学习笔记</a> <a href="/tags/小记/" style="font-size: 12px;">小记</a></div>
+
+    
+
+    
+      
+
+<ul class="widget blogroll">
+  <h3 class="title">Recent Post</h3>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2016/01/16/hexo搭建博客deploy失败/">hexo搭建博客deploy失败</a></h3>
+        <p></p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2015/12/18/正则表达式的学习/">正则表达式的学习</a></h3>
+        <p>创建时间：2015/12/10
+修改时间：
+
+先推荐几个学习正则表达式的好的网址：
+
+维基百科的正则</p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2015/12/18/markdow-pdf简介/">markdow-pdf简介</a></h3>
+        <p>
+作者：王远(yuanwang@bainainfo.com)
+创建：2015/12/01
+最后修改：</p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2015/12/18/第一篇blog/">第一篇blog</a></h3>
+        <p>从大四开始写博客，觉得学习和分享什么时候都不会晚.写博客的目的是为了让自己让成一个好的习惯，并且记录</p>
+      </div>
+    </li>
+  
+</ul>
+
+
+    
+
+  </div>
+</div>
+
+
+  </div>
+  
+<div class="footer">
+  <div class="container">
+    <a href="//github.com/kywk/hexo-theme-awe">AWE for hexo</a> inspired by <a href="http://goo.gl/H8OMRE">Awesome UI Kit</a>,
+    ported by <a href="//kywk.github.io/">MooCow (Aka. kywk)</a>.
+    
+    &copy; 2016 yeah All Rights Reserved
+    
+  </div>
+</div>
+
+  <!-- disqus -->
+
+
+
+<script>
+$(document).ready(function() {
+  $('.imgLiquid').imgLiquid({fill:true, fadeInTime:500});
+});
+</script>
+
+
+<!-- fancybox -->
+<link rel="stylesheet" href="/package/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/package/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type="text/javascript">
+(function($){
+  $(".fancybox").fancybox();
+  $(".various").fancybox({
+    maxWidth  : 800,
+    maxHeight : 600,
+    fitToView : false,
+    width   : '70%',
+    height    : '70%',
+    autoSize  : true,
+    closeClick  : false,
+    openEffect  : 'none',
+    closeEffect : 'none'
+  });
+})(jQuery);
+</script>
+
+</body>
+</html>
