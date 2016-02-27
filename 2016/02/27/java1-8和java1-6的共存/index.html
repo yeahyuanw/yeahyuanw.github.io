@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta name="viewport" content="width=932" >
+  <meta name="MobileOptimized" content="932" >
+  <meta name="generator" content="yeah的札记">
+  <title>java1.8和java1.6的共存</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/awe.css">
+  <link rel="stylesheet" type="text/css" href="/css/social-likes.css">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/js/imgLiquid-min.js"></script>
+  <script src="/js/social-likes.min.js"></script>
+</head>
+
+<body>
+  <div class="main-container">
+    
+
+<div class="box profile">
+  <div class="heading" style="background: #3e5354 url(/images/bg-heading.jpg) no-repeat;">
+    <div class="profile-img">
+      <a href="/"><img src="/images/img-profile.jpg" width="154" height="150" alt="image description"></a>
+    </div>
+    <strong class="user"><a href="/">yeah的札记</a></strong>
+    <span class="locate">China</span>
+  </div>
+  <div class="setting">
+    <a href="/" class="btn-profile">Profile</a>
+    <a href="/" class="btn-photos">Photos</a>
+    <a href="/" class="btn-follow">Follow me</a>
+  </div>
+</div>
+
+    
+<div class="two-columns post-page">
+  <div class="content">
+
+    <div class="post box nocover">
+      <em class="date"><span>27</span>Feb</em>
+      <h2 class="post-title"><a href="/2016/02/27/java1-8和java1-6的共存/">java1.8和java1.6的共存</a></h2>
+      <div class="post-content"><p>在我们的项目中，有可能因为受服务器的限制需要安装不同的JAVA版本，可以用python写一个脚本，然后快速在1.6和1.8版本之间进行切换，省去许多麻烦。</p>
+<h3 id="1-_u51C6_u5907_u5DE5_u4F5C"><a href="#1-_u51C6_u5907_u5DE5_u4F5C" class="headerlink" title="1.准备工作"></a>1.准备工作</h3><h4 id="1-1__u4E0B_u8F7Dpywin"><a href="#1-1__u4E0B_u8F7Dpywin" class="headerlink" title="1.1 下载pywin"></a>1.1 下载pywin</h4><p>因为写脚本时需要导入win32api和win32com,所以需要下载Pywin，下载时需要注意，要根据自己的Python版本和操作系统位数来下载。<br>下载地址: <a href="https://sourceforge.net/projects/pywin32/files/pywin32/" target="_blank" rel="external">pywin</a></p>
+<h4 id="1-2_java1-6_u548Cjava1-8_u7684_u5B89_u88C5"><a href="#1-2_java1-6_u548Cjava1-8_u7684_u5B89_u88C5" class="headerlink" title="1.2 java1.6和java1.8的安装"></a>1.2 java1.6和java1.8的安装</h4><p>可以将java1.6和java1.8安装在同一级目录下，会方便操作。比如我将java1.6安装在 F:\360Downloads\java1_6 ;将java1.8安装在 F:\360Downloads\java1_8 .然后配置环境变量。</p>
+<h3 id="2-_u7F16_u5199python"><a href="#2-_u7F16_u5199python" class="headerlink" title="2.编写python"></a>2.编写python</h3><p>可以通过修改注册表实现。修改完后要广播WM_SETTINGCHANGE消息通知现有窗体重新加载环境变量。</p>
+<p>如果需要改变环境变量在机器层次就需要修改注册表入口为：</p>
+<blockquote>
+<p>HLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment</p>
+</blockquote>
+<p>需要修改环境变量在用户层次需要修改注册表入口为：</p>
+<blockquote>
+<p>HKEY_CURRENT_USER\Environment\Path</p>
+</blockquote>
+<p>需要修改环境变量在应用的层次则需要修改注册表入口为：</p>
+<blockquote>
+<p>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</p>
+</blockquote>
+<p>我用的是python3.5的版本，python2.7的版本需要导入的是_winreg模块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> winreg  </span><br><span class="line"><span class="keyword">import</span> win32api  </span><br><span class="line"><span class="keyword">import</span> win32con</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_changePath_</span><span class="params">(path)</span>:</span></span><br><span class="line">	key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, <span class="string">'System\\CurrentControlSet\\Control\\Session Manager\\Environment'</span>, <span class="number">0</span>, winreg.KEY_WRITE)</span><br><span class="line">	winreg.SetValueEx(key, <span class="string">'JAVA_HOME'</span>, <span class="number">0</span>, winreg.REG_SZ, path)</span><br><span class="line">	winreg.CloseKey(key)</span><br><span class="line">	win32api.SendMessage(win32con.HWND_BROADCAST, win32con.WM_SETTINGCHANGE, <span class="number">0</span>, <span class="string">'Environment'</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">j1_6Path = <span class="string">'F:\\360Downloads\\java1_6\\jdk'</span></span><br><span class="line">j1_8Path = <span class="string">'F:\\360Downloads\\java1_8\\jdk'</span></span><br><span class="line">javaPath = os.environ.get(<span class="string">'JAVA_HOME'</span>)</span><br><span class="line">print(<span class="string">'目前java路径为: '</span>+javaPath)</span><br><span class="line"><span class="keyword">if</span> javaPath == j1_6Path:</span><br><span class="line">	_changePath_(j1_8Path)</span><br><span class="line">	print(<span class="string">'将java1.6切换到java1.8'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	_changePath_(j1_6Path)</span><br><span class="line">	print(<span class="string">'将java1.8切换到java1.6'</span>)</span><br><span class="line">print(<span class="string">'change over!'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="3-_u8C03_u7528python_u811A_u672C"><a href="#3-_u8C03_u7528python_u811A_u672C" class="headerlink" title="3.调用python脚本"></a>3.调用python脚本</h3><p>可以在桌面新建一个J1.6ToJ1.8.bat脚本文件调用J1.6ToJ1.8.py,以后需要切换java版本时只要双击J1.6ToJ1.8.bat脚本就可以了。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">call</span> py3 <span class="keyword">E</span>:\pythoncode\J1_6ToJ1_8.py</span></span><br></pre></td></tr></table></figure></div>
+
+      <div class="bottom-panel">
+        <ul class="social-likes" data-url="/2016/02/27/java1-8和java1-6的共存/">
+          <li class="facebook" title="like"></li>
+          <li class="twitter" title="twitte"></li>
+          <li class="plusone" title="google"></li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="widgetarea">
+
+    
+    
+<div class="tags widget">
+  <h3 class="title">Tags</h3>
+  <div style="text-align:center">
+    
+    <a class="button" href="/tags/python/">python</a>
+    
+  </div>
+  
+</div>
+
+
+<div class="tagcloud" id="fbox-tagcloud" style="margin:10px; display:none; overflow: hidden"><a href="/tags/python/" style="font-size: 24px;">python</a> <a href="/tags/学习笔记/" style="font-size: 24px;">学习笔记</a> <a href="/tags/小记/" style="font-size: 12px;">小记</a></div>
+
+    
+
+    
+      
+
+<ul class="widget blogroll">
+  <h3 class="title">Recent Post</h3>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2016/02/27/java1-8和java1-6的共存/">java1.8和java1.6的共存</a></h3>
+        <p>在我们的项目中，有可能因为受服务器的限制需要安装不同的JAVA版本，可以用python写一个脚本，然</p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2016/01/16/hexo搭建博客deploy失败/">hexo搭建博客deploy失败</a></h3>
+        <p>用hexo搭建了博客，但是部署不了，网上有说可能是SSH端口没开，但可以用SSH协议从github上</p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2015/12/18/正则表达式的学习/">正则表达式的学习</a></h3>
+        <p>创建时间：2015/12/10
+修改时间：
+
+先推荐几个学习正则表达式的好的网址：
+
+维基百科的正则</p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2015/12/18/markdow-pdf简介/">markdow-pdf简介</a></h3>
+        <p>工具：Markdown-pdf
+
+用 markdown-pdf 将 markdown 格式文件转换为</p>
+      </div>
+    </li>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2015/12/18/第一篇blog/">第一篇blog</a></h3>
+        <p>从大四开始写博客，觉得学习和分享什么时候都不会晚.写博客的目的是为了让自己让成一个好的习惯，并且记录</p>
+      </div>
+    </li>
+  
+</ul>
+
+
+    
+
+  </div>
+</div>
+
+
+  </div>
+  
+<div class="footer">
+  <div class="container">
+    <a href="//github.com/kywk/hexo-theme-awe">AWE for hexo</a> inspired by <a href="http://goo.gl/H8OMRE">Awesome UI Kit</a>,
+    ported by <a href="//kywk.github.io/">MooCow (Aka. kywk)</a>.
+    
+    &copy; 2016 yeah All Rights Reserved
+    
+  </div>
+</div>
+
+  <!-- disqus -->
+
+
+
+<script>
+$(document).ready(function() {
+  $('.imgLiquid').imgLiquid({fill:true, fadeInTime:500});
+});
+</script>
+
+
+<!-- fancybox -->
+<link rel="stylesheet" href="/package/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/package/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type="text/javascript">
+(function($){
+  $(".fancybox").fancybox();
+  $(".various").fancybox({
+    maxWidth  : 800,
+    maxHeight : 600,
+    fitToView : false,
+    width   : '70%',
+    height    : '70%',
+    autoSize  : true,
+    closeClick  : false,
+    openEffect  : 'none',
+    closeEffect : 'none'
+  });
+})(jQuery);
+</script>
+
+</body>
+</html>
