@@ -45,6 +45,29 @@
 
 
     <div class="post box nocover">
+      <em class="date"><span>27</span>Feb</em>
+      <h2 class="post-title"><a href="/2016/02/27/java1-8和java1-6的共存/">java1.8和java1.6的共存</a></h2>
+      <div class="post-content">在我们的项目中，有可能因为受服务器的限制需要安装不同的JAVA版本，可以用python写一个脚本，然后快速在1.6和1.8版本之间进行切换，省去许多麻烦。
+1.准备工作1.1 下载pywin因为写脚本时需要导入win32api和win32com,所以需要下载Pywin，下载时需要注意，要根据自己的Python版本和操作系统位数来下载。下载地址: pywin
+1.2 java1.6和java1.8的安装可以将java1.6和java1.8安装在同一级目录下，会方便操作。比如我将java1.6安装在 F:\360Downloads\java1_6 ;将java1.8安装在 F:\360Downloads\java1_8 .然后配置环境变量。
+2.编写python可以通过修改注册表实现。修改完后要广播WM_SETTINGCHANGE消息通知现有窗体重新加载环境变量。
+如果需要改变环境变量在机器层
+      </div>
+
+      <div class="bottom-panel">
+        <ul class="social-likes" data-url="http://yoursite.com/2016/02/27/java1-8和java1-6的共存/">
+          <li class="facebook" title="like"></li>
+          <li class="twitter" title="twitte"></li>
+          <li class="plusone" title="google"></li>
+        </ul>
+        <a href="http://yoursite.com/2016/02/27/java1-8和java1-6的共存/#disqus_thread" class="btn-comment">Comments</a>
+      </div>
+    </div>
+
+
+
+
+    <div class="post box nocover">
       <em class="date"><span>16</span>Jan</em>
       <h2 class="post-title"><a href="/2016/01/16/hexo搭建博客deploy失败/">hexo搭建博客deploy失败</a></h2>
       <div class="post-content">用hexo搭建了博客，但是部署不了，网上有说可能是SSH端口没开，但可以用SSH协议从github上克隆代码。为了方便部署，我自己又另外想了方法。
@@ -125,14 +148,11 @@
         <em class="date"><span>18</span>Dec</em>
         <h2 class="post-title"><a href="/2015/12/18/markdow-pdf简介/">markdow-pdf简介</a></h2>
       </div>
-      <div class="post-content">
-作者：王远(yuanwang@bainainfo.com)
-创建：2015/12/01
-最后修改：2015/12/03
+      <div class="post-content">工具：Markdown-pdf
 
-工具：Markdown-pdf
+用 markdown-pdf 将 markdown 格式文件转换为 pdf 格式文件，将使转换后的 pdf 文件有极好的效果。因为它可以用 Phantomjs 来对你的文件进行渲染，指定一个 CSS 文件还可以定制你自己的风格，并且可以在转换前通过预处理函数进行预处理。
 
-用 markdown-pdf 将 markdown 格式文件转换为 pdf 格式文件，将使转换后的 pdf 文件有极好的效果。因为它可以用 Phantomjs 来对你的文件进行渲染，指定一个 CSS 文件还可以定制你自己的风格，并且可以在转换</div>
+1. Node.js的安装和配置在运用 markdown-pdf 之前需要安装 Node.j</div>
 
       <div class="bottom-panel">
         <ul class="social-likes" data-url="http://yoursite.com/2015/12/18/markdow-pdf简介/">
@@ -185,6 +205,8 @@
   <h3 class="title">Tags</h3>
   <div style="text-align:center">
     
+    <a class="button" href="/tags/python/">python</a>
+    
     <a class="button" href="/tags/学习笔记/">学习笔记</a>
     
     <a class="button" href="/tags/小记/">小记</a>
@@ -194,7 +216,7 @@
 </div>
 
 
-<div class="tagcloud" id="fbox-tagcloud" style="margin:10px; display:none; overflow: hidden"><a href="/tags/学习笔记/" style="font-size: 24px;">学习笔记</a> <a href="/tags/小记/" style="font-size: 12px;">小记</a></div>
+<div class="tagcloud" id="fbox-tagcloud" style="margin:10px; display:none; overflow: hidden"><a href="/tags/python/" style="font-size: 24px;">python</a> <a href="/tags/学习笔记/" style="font-size: 24px;">学习笔记</a> <a href="/tags/小记/" style="font-size: 12px;">小记</a></div>
 
     
 
@@ -203,6 +225,14 @@
 
 <ul class="widget blogroll">
   <h3 class="title">Recent Post</h3>
+  
+    
+    <li>
+      <div class="text-holder">
+        <h3 class="link-title"><a href="/2016/02/27/java1-8和java1-6的共存/">java1.8和java1.6的共存</a></h3>
+        <p>在我们的项目中，有可能因为受服务器的限制需要安装不同的JAVA版本，可以用python写一个脚本，然</p>
+      </div>
+    </li>
   
     
     <li>
@@ -229,10 +259,9 @@
     <li>
       <div class="text-holder">
         <h3 class="link-title"><a href="/2015/12/18/markdow-pdf简介/">markdow-pdf简介</a></h3>
-        <p>
-作者：王远(yuanwang@bainainfo.com)
-创建：2015/12/01
-最后修改：</p>
+        <p>工具：Markdown-pdf
+
+用 markdown-pdf 将 markdown 格式文件转换为</p>
       </div>
     </li>
   
