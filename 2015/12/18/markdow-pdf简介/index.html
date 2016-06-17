@@ -1,0 +1,704 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="学习笔记," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="工具：Markdown-pdf
+
+用 markdown-pdf 将 markdown 格式文件转换为 pdf 格式文件，将使转换后的 pdf 文件有极好的效果。因为它可以用 Phantomjs 来对你的文件进行渲染，指定一个 CSS 文件还可以定制你自己的风格，并且可以在转换前通过预处理函数进行预处理。
+
+1. Node.js的安装和配置在运用 markdown-pdf 之前需要安装 Node.j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="markdow-pdf简介">
+<meta property="og:url" content="http://yoursite.com/2015/12/18/markdow-pdf简介/index.html">
+<meta property="og:site_name" content="yeah的札记">
+<meta property="og:description" content="工具：Markdown-pdf
+
+用 markdown-pdf 将 markdown 格式文件转换为 pdf 格式文件，将使转换后的 pdf 文件有极好的效果。因为它可以用 Phantomjs 来对你的文件进行渲染，指定一个 CSS 文件还可以定制你自己的风格，并且可以在转换前通过预处理函数进行预处理。
+
+1. Node.js的安装和配置在运用 markdown-pdf 之前需要安装 Node.j">
+<meta property="og:image" content="http://img.hoop8.com/attachments/1512/3412002900578.jpg">
+<meta property="og:image" content="http://img.hoop8.com/attachments/1512/3722002900578.jpg">
+<meta property="og:image" content="http://img.hoop8.com/attachments/1512/1471899604210.png">
+<meta property="og:image" content="http://img.hoop8.com/attachments/1512/9392002900578.png">
+<meta property="og:image" content="http://img.hoop8.com/attachments/1512/4951899604210.png">
+<meta property="og:image" content="http://img.hoop8.com/attachments/1512/6792002900578.png">
+<meta property="og:updated_time" content="2016-01-16T12:52:08.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="markdow-pdf简介">
+<meta name="twitter:description" content="工具：Markdown-pdf
+
+用 markdown-pdf 将 markdown 格式文件转换为 pdf 格式文件，将使转换后的 pdf 文件有极好的效果。因为它可以用 Phantomjs 来对你的文件进行渲染，指定一个 CSS 文件还可以定制你自己的风格，并且可以在转换前通过预处理函数进行预处理。
+
+1. Node.js的安装和配置在运用 markdown-pdf 之前需要安装 Node.j">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> markdow-pdf简介 | yeah的札记 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yeah的札记</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">做一个有趣的人</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                markdow-pdf简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-18T15:01:23+08:00" content="2015-12-18">
+              2015-12-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/18/markdow-pdf简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/18/markdow-pdf简介/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>工具：<a href="https://github.com/alanshaw/markdown-pdf" target="_blank" rel="external">Markdown-pdf</a></p>
+<hr>
+<p>用 markdown-pdf 将 markdown 格式文件转换为 pdf 格式文件，将使转换后的 pdf 文件有极好的效果。因为它可以用 Phantomjs 来对你的文件进行渲染，指定一个 CSS 文件还可以定制你自己的风格，并且可以在转换前通过预处理函数进行预处理。</p>
+<hr>
+<h3 id="1-_Node-js_u7684_u5B89_u88C5_u548C_u914D_u7F6E"><a href="#1-_Node-js_u7684_u5B89_u88C5_u548C_u914D_u7F6E" class="headerlink" title="1. Node.js的安装和配置"></a>1. Node.js的安装和配置</h3><p>在运用 markdown-pdf 之前需要安装 Node.js 和配置相关环境，在这里我们选择在 Windows 下安装（其实是别无选择）。对 javascript 的发展有所了解的同学可能会听说过 Node.js 。有关 Node.js 的资料网上已经可以说是铺天盖地，我们这时可以稍微奉行一下 “拿来主义” ,本文不过多介绍（不过还是可以给介绍一个流量比较多的网站 <a href="https://cnodejs.org/" target="_blank" rel="external">CNode：Node.js 专业中文社区</a> ）。</p>
+<p>Node.js 下载地址– <a href="http://www.nodejs.org/download/" target="_blank" rel="external">官网</a> </p>
+<p><img src="http://img.hoop8.com/attachments/1512/3412002900578.jpg" alt="logo"></p>
+<p>Node.js 支持 Windows 、 Linux 和 Mac OS 。</p>
+<p><img src="http://img.hoop8.com/attachments/1512/3722002900578.jpg" alt="下载截图"></p>
+<p>在这里我们下载的是 Winstaller(.msi)，64-bit 。</p>
+<h3 id="2-_markdown-pdf__u7684_u5B89_u88C5"><a href="#2-_markdown-pdf__u7684_u5B89_u88C5" class="headerlink" title="2. markdown-pdf 的安装"></a>2. markdown-pdf 的安装</h3><p>markdown-pdf 的 <a href="https://github.com/alanshaw/markdown-pdf" target="_blank" rel="external">开源代码</a> 发布在 github 。</p>
+<p>安装 Node.js 完后，可以发现安装包里已经自带了 npm （ npm 是什么呢？）。</p>
+<blockquote>
+<p>npm 的全称是 Node Package Manager ，是 Node.js 的包管理和分发工具(好像跟 java 中的 Maven 的功能一样的，管理各种依赖包)。Node.js 自身提供了基本的模块，但是开发<br>实际应用仅仅依靠这些基本模块则还需要较多的工作。幸运的是，Node.js库和框架为我们提供了帮助，让我们减少工作量。<br>但是成百上千的库或者框架管理起来又很麻烦，有了npm，可以很快的找到特定服务要使用的包，进行下载、安装以及管理已经安装的包。<br>所以，我们可以用 npm 来安装 markdown-pdf 。</p>
+</blockquote>
+<p>如果要将 markdown-pdf 作为终端的一个独立的程序，可以在 Node.js 的安装目录 （E:\Program Files\nodejs）下打开命令窗口，输入如下命令：</p>
+<pre><code>npm install -g markdown-pdf
+</code></pre><p><img src="http://img.hoop8.com/attachments/1512/1471899604210.png" alt="markdown-pdf安装成功"></p>
+<p>安装完后，我们就可以在终端直接输入 markdown-pdf 作为命令，命令的详细信息如下：</p>
+<pre><code>Usage: markdown-pdf [options] &lt;markdown-file-path&gt;
+</code></pre><p> &lt; markdown-file-paht > 就是我们将要转换的 markdown 文件所在的路径。</p>
+<pre><code>Options:
+    -h, --help                             output usage information（命令用法）
+    -V, --version                          output the version number（版本信息）
+    &lt; markdown-file-path &gt;                 Path of the markdown file to convert（即将转换的markdown文件路径）
+    -c, --cwd [path]                       Current working directory(当前工作空间)
+    -p, --phantom-path [path]              Path to phantom binary（phantom文件所在路径，phantom是用来渲染）
+    -h, --runnings-path [path]             Path to runnings (header, footer)
+    -s, --css-path [path]                  Path to custom CSS file（定制私人风格的CSS文件路径）
+    -z, --highlight-css-path [path]        Path to custom highlight-CSS file（定制私人风格的高亮CSS文件路径）
+    -m, --remarkable-options [json]        Options to pass to Remarkable
+    -f, --paper-format [format]            &apos;A3&apos;, &apos;A4&apos;, &apos;A5&apos;, &apos;Legal&apos;, &apos;Letter&apos; or &apos;Tabloid&apos;（纸张格式）
+    -r, --paper-orientation [orientation]  &apos;portrait&apos; or &apos;landscape&apos;（页面规格，竖排格式或横排格式）
+    -b, --paper-border [measurement]       Supported dimension units are: &apos;mm&apos;, &apos;cm&apos;, &apos;in&apos;, &apos;px&apos;
+    -d, --render-delay [millis]            Delay before rendering the PDF
+    -t, --load-timeout [millis]            Timeout before the page is rendered in case `page.onLoadFinished` isn&apos;t fired
+    -o, --out [path]                       Path of where to save the PDF（保存PDF文件的路径）
+</code></pre><p>现在我们可以验证一下，是否安装成功：</p>
+<pre><code>markdown-pdf -V
+</code></pre><p><img src="http://img.hoop8.com/attachments/1512/9392002900578.png" alt="markdown-pdf version"></p>
+<p>验证成功！我们就可以开始将我们编辑的 markdown 格式的文件转换为 pdf 啦！！！<br>我们可以指定 CSS 文件来定制风格，并且可以指定是 ‘A4’ 还是 ‘Letter’ 等其它格式……</p>
+<p><em>值得注意的是：</em> <strong>当我们的文档中有中文的时候，我们要注意保存时文档的格式，格式最好调为 UTF-8 无 BOM 格式；否则可能会导致中文乱码（可以想象乱码后的心情有多糟）</strong></p>
+<h3 id="3-_markdown-pdf_u7684Example_Usage"><a href="#3-_markdown-pdf_u7684Example_Usage" class="headerlink" title="3. markdown-pdf的Example Usage"></a>3. markdown-pdf的Example Usage</h3><pre><code>git clone git@github.com:alanshaw/markdown-pdf.git
+</code></pre><p>可以发现，其目录结构为：</p>
+<p><img src="http://img.hoop8.com/attachments/1512/4951899604210.png" alt="markdown-pdf目录结构"></p>
+<p>我们可以看到有一个 test 的文件夹，里面有不少值得借鉴的用例。至于 bin 、 phantom 、 html5bp 这几个文件夹里的内容，对 Node.js 感兴趣的同学，可以研究一下它们具体的作用啦！<br>看了 test 文件夹里内容的同学可能会发现，这些例子并不是使用的终端的命令行呀！对的，除了在终端直接输入命令外，还有另外一种方式，那就是新建js文件，然后运行。<br>比如说，我们现在可以新建一个temp.js这样一个文件，如果只是简单的想把 markdown 文件转换为 pdf 文件，可以再文件了写下如下代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var markdownpdf = require(&#34;markdown-pdf&#34;)&#10;markdownpdf().from(&#34;markdown-pdf.md&#34;).to(&#34;markdown-pdf.pdf&#34;, function () &#123;&#10;    console.log(&#34;Done&#34;)&#10;&#125;)</span><br></pre></td></tr></table></figure>
+<p>然后打开终端，输入命令：</p>
+<pre><code>node temp.js
+</code></pre><p><img src="http://img.hoop8.com/attachments/1512/6792002900578.png" alt="运行成功"></p>
+<p>我们发现同样是可以转换成功。当然，往往我们的需求不会那么简单，为了突出我们的个性，我们会需要更多的“私人订制”，那么我们可以加上 options .</p>
+<p>比如说我们可能需要转换后的 pdf 是 ‘A4’ 格式，横排排版，有 remarkable 等等……那就需要加上options：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var markdownpdf = require(&#34;markdown-pdf&#34;)&#10;var options = &#123;&#10;    paperFormat : &#39;A4&#39;, //A4&#26684;&#24335;&#10;    paperOrientation : &#39;portrait&#39;,  //&#27178;&#25490;&#25490;&#29256;&#10;    cssPath : &#39;temp.css&#39;, //css&#25991;&#20214;&#30340;&#36335;&#24452;&#65292;&#30456;&#23545;&#20110;&#24403;&#21069;&#30446;&#24405;&#10;    remarkable :&#123;&#10;        html : true, //&#26159;&#21542;&#20801;&#35768;&#23384;&#22312; html &#26631;&#31614;&#10;        xhtmlOut : true, //&#29992; &#39;/&#39;&#26469;&#20851;&#38381;Single tags(&#60;br/&#62;),&#26159;&#21542;&#20005;&#26684;&#35268;&#23450;&#26631;&#31614;&#30340;&#33258;&#23553;&#38381;&#21543;&#65281;&#10;        breaks : false, //&#26159;&#21542;&#23558;&#27573;&#33853;&#20013;&#30340; &#39;\n&#39; &#36716;&#25442;&#20026; &#60;br /&#62; .&#10;        linkify : false //&#26159;&#21542;&#33258;&#21160;&#36716;&#25442;&#31867;&#20284;URL&#30340;&#25991;&#26412;&#20026;&#38142;&#25509;&#10;    &#125;&#10;&#125;&#10;markdownpdf(options).from(&#34;markdown-pdf.md&#34;).to(&#34;markdown-pdf.pdf&#34;, function () &#123;&#10;    console.log(&#34;Done&#34;)&#10;&#125;)</span><br></pre></td></tr></table></figure>
+<p>在这里我们需要注意的是 <strong>options需要为json格式</strong> 。<br>那么 <a href="https://www.npmjs.com/package/remarkable" target="_blank" rel="external">remarkable</a> 又是什么呢？remarkable是一个markdown的解析器，官网是这样说的：</p>
+<blockquote>
+<p>Markdown parser, done right. 100% Commonmark support, extensions, syntax plugins, high speed - all in one.</p>
+</blockquote>
+<p>翻译成一句就是，“我很牛，我很强大”。有兴趣的同学可以继续深入了解一下。</p>
+<p>有时，我们可能会需要将多个markdown文件转换为一个pdf文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var markdownpdf = require(&#34;markdown-pdf&#34;)&#10;var mdDocs = [&#34;temp.md&#34;,&#34;temp1.md&#34;,&#34;temp2.md&#34;]&#10;markdownpdf().concat.from(mdDocs).to(&#34;result.pdf&#34;, function () &#123;&#10;    console.log(&#34;Done&#34;)&#10;&#125;)</span><br></pre></td></tr></table></figure>
+<p>同样，我们可以定义一个预处理函数 preProcessMd ，然后配置在options，在转换前进行预处理；markdown-pdf还有很多功能。我也是边学边用，如果想对markdown-pdf这个工具想有更深入的了解，可以在 <a href="https://www.npmjs.com/package/markdown-pdf" target="_blank" rel="external">官网</a> 获得更多，更详细的信息。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习笔记/" rel="tag">#学习笔记</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/18/第一篇blog/" rel="next" title="第一篇blog">
+                <i class="fa fa-chevron-left"></i> 第一篇blog
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/18/正则表达式的学习/" rel="prev" title="正则表达式的学习">
+                正则表达式的学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/18/markdow-pdf简介/"
+           data-title="markdow-pdf简介" data-url="http://yoursite.com/2015/12/18/markdow-pdf简介/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://raw.githubusercontent.com/yeahyuanw/images/master/007.JPG"
+               alt="yeahyuanw" />
+          <p class="site-author-name" itemprop="name">yeahyuanw</p>
+          <p class="site-description motion-element" itemprop="description">做一个有趣的人</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yeahyuanw/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5526148595/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ws.nju.edu.cn/" title="websoft" target="_blank">websoft</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ws.nju.edu.cn/indata-wiki/" title="in(data)" target="_blank">in(data)</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_Node-js_u7684_u5B89_u88C5_u548C_u914D_u7F6E"><span class="nav-number">1.</span> <span class="nav-text">1. Node.js的安装和配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_markdown-pdf__u7684_u5B89_u88C5"><span class="nav-number">2.</span> <span class="nav-text">2. markdown-pdf 的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_markdown-pdf_u7684Example_Usage"><span class="nav-number">3.</span> <span class="nav-text">3. markdown-pdf的Example Usage</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yeah</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yeahyuanw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
