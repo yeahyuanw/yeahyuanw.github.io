@@ -1,0 +1,663 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="知识表示学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="毕设做的是知识表示学习相关工作，从16年2月底从海豚浏览器辞去实习，开始全身心地做毕业设计，一直到6月。
+整个毕设过程回想还算平坦，虽也遇到问题，但最后还算是取得一定成绩，被推选湖北省优秀学士论文，也准备将论文整理，投国内的一个会议。
+
+表示学习也成为特征学习，也叫深度学习。 ——Reresentation Learning: A Review and New Perspectives
+
+资料
+知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于地理知识图谱的表示学习">
+<meta property="og:url" content="http://yoursite.com/2016/06/18/知识表示学习/index.html">
+<meta property="og:site_name" content="yeah的札记">
+<meta property="og:description" content="毕设做的是知识表示学习相关工作，从16年2月底从海豚浏览器辞去实习，开始全身心地做毕业设计，一直到6月。
+整个毕设过程回想还算平坦，虽也遇到问题，但最后还算是取得一定成绩，被推选湖北省优秀学士论文，也准备将论文整理，投国内的一个会议。
+
+表示学习也成为特征学习，也叫深度学习。 ——Reresentation Learning: A Review and New Perspectives
+
+资料
+知">
+<meta property="og:updated_time" content="2016-06-18T01:15:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于地理知识图谱的表示学习">
+<meta name="twitter:description" content="毕设做的是知识表示学习相关工作，从16年2月底从海豚浏览器辞去实习，开始全身心地做毕业设计，一直到6月。
+整个毕设过程回想还算平坦，虽也遇到问题，但最后还算是取得一定成绩，被推选湖北省优秀学士论文，也准备将论文整理，投国内的一个会议。
+
+表示学习也成为特征学习，也叫深度学习。 ——Reresentation Learning: A Review and New Perspectives
+
+资料
+知">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 基于地理知识图谱的表示学习 | yeah的札记 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yeah的札记</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">做一个有趣的人</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于地理知识图谱的表示学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-18T00:06:59+08:00" content="2016-06-18">
+              2016-06-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/18/知识表示学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/18/知识表示学习/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>毕设做的是知识表示学习相关工作，从16年2月底从海豚浏览器辞去实习，开始全身心地做毕业设计，一直到6月。</p>
+<p>整个毕设过程回想还算平坦，虽也遇到问题，但最后还算是取得一定成绩，被推选湖北省优秀学士论文，也准备将论文整理，投国内的一个会议。</p>
+<blockquote>
+<p>表示学习也成为特征学习，也叫深度学习。 ——<a href="http://arxiv.org/pdf/1206.5538.pdf" target="_blank" rel="external">Reresentation Learning: A Review and New Perspectives</a></p>
+</blockquote>
+<h3 id="u8D44_u6599"><a href="#u8D44_u6599" class="headerlink" title="资料"></a>资料</h3><ul>
+<li><a href="http://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2016.20160020#" target="_blank" rel="external">知识表示学习研究综述</a></li>
+<li><a href="http://www.utc.fr/~bordesan/dokuwiki/_media/en/transe_nips13.pdf" target="_blank" rel="external">TransE模型</a> ——将关系看作是实体在语义空间中的平移</li>
+<li><a href="http://ss.sysu.edu.cn/~fjl/aaai2014.pdf" target="_blank" rel="external">TransH模型</a> ——将关系看作超平面，实体在关系的超平面上做平移</li>
+<li><a href="http://nlp.csai.tsinghua.edu.cn/~lzy/publications/aaai2015_transr.pdf" target="_blank" rel="external">TransR模型</a> ——基于空间投影对关系路径进行扩展</li>
+<li><a href="http://nlp.csai.tsinghua.edu.cn/~lzy/publications/emnlp2015_path.pdf" target="_blank" rel="external">PTransE模型</a> ——基于关系路径对TransE进行扩展</li>
+<li><a href="http://nlp.csai.tsinghua.edu.cn/~lzy/publications/aaai2016_dkrl.pdf" target="_blank" rel="external">DKRL模型</a> ——结合实体的上下文对TransE进行扩展</li>
+</ul>
+<h3 id="u6211_u7684_u5DE5_u4F5C"><a href="#u6211_u7684_u5DE5_u4F5C" class="headerlink" title="我的工作"></a>我的工作</h3><p>我主要的工作就是将TransR模型和PTransE模型进行了结合，因为这两个模型是在不同的方面来对TransE模型进行扩展，然后在结合的基础上做了进一步的改进。主要包括了以下三部分：</p>
+<ol>
+<li>针对基础教育地理知识具有内容广泛、并包含多维特征的特点，用基于深度学习的翻译模型来表示地理知识。</li>
+<li>针对翻译模型在处理知识图谱中复杂关系能力缺失和只局限的使用三元组结构信息的问题，我们构建了PTransW模型。PTransW模型是将基于空间投影来扩展翻译模型的TransR模型和基于关系路径来扩展翻译模型的PTransE模型进行结合，并在此基础上进一步改进，在空间投影时考虑关系类型中的语义信息。</li>
+<li>在公共数据集FB15K上对PTransW模型进行训练并做链接预测实验，与前人的结果进行比较；最后将TransE、TransR、PTransE和PTransW模型在数据集GEOGRAPHY上进行训练和做链接预测实验，进行对比分析。</li>
+</ol>
+<p><a href="https://github.com/yeahyuanw/RL" target="_blank" rel="external">参考代码</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/知识表示学习/" rel="tag">#知识表示学习</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/27/java1-8和java1-6的共存/" rel="next" title="java1.8和java1.6的共存">
+                <i class="fa fa-chevron-left"></i> java1.8和java1.6的共存
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/15/shortest-path-algorithm/" rel="prev" title="shortest path algorithm">
+                shortest path algorithm <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/18/知识表示学习/"
+           data-title="基于地理知识图谱的表示学习" data-url="http://yoursite.com/2016/06/18/知识表示学习/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://raw.githubusercontent.com/yeahyuanw/images/master/007.JPG"
+               alt="yeahyuanw" />
+          <p class="site-author-name" itemprop="name">yeahyuanw</p>
+          <p class="site-description motion-element" itemprop="description">做一个有趣的人</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yeahyuanw/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5526148595/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ws.nju.edu.cn/" title="websoft" target="_blank">websoft</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ws.nju.edu.cn/indata-wiki/" title="in(data)" target="_blank">in(data)</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u8D44_u6599"><span class="nav-number">1.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6211_u7684_u5DE5_u4F5C"><span class="nav-number">2.</span> <span class="nav-text">我的工作</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yeah</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yeahyuanw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
