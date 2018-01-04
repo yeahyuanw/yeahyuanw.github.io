@@ -1,0 +1,642 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="统计机器学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介k近邻(KNN)是一种基本的分类算法. 可以多分类. 分类时, 对新的样本, 根据其k个最邻近的训练样本的类别通过投票等规则来进行预测. KNN并没有显示的学习过程, 更像是通过统计来确定实例的类别.
+KNN的三个基本要素是: k值的选取, 距离度量, 分类决策规则.
+如果训练样本较多, 每当来一个新的样本, 则需要计算新样本与所有训练样本的距离, 然后取k个距离最近的训练样本来进行决策分类.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k近邻算法">
+<meta property="og:url" content="http://yoursite.com/2017/01/08/k近邻算法/index.html">
+<meta property="og:site_name" content="yeah's Blog">
+<meta property="og:description" content="简介k近邻(KNN)是一种基本的分类算法. 可以多分类. 分类时, 对新的样本, 根据其k个最邻近的训练样本的类别通过投票等规则来进行预测. KNN并没有显示的学习过程, 更像是通过统计来确定实例的类别.
+KNN的三个基本要素是: k值的选取, 距离度量, 分类决策规则.
+如果训练样本较多, 每当来一个新的样本, 则需要计算新样本与所有训练样本的距离, 然后取k个距离最近的训练样本来进行决策分类.">
+<meta property="og:image" content="https://github.com/yeahyuanw/images/blob/master/kdtree1.png?raw=true">
+<meta property="og:image" content="https://github.com/yeahyuanw/images/blob/master/kdtree2.png?raw=true">
+<meta property="og:image" content="https://github.com/yeahyuanw/images/blob/master/kdtree3.png?raw=true">
+<meta property="og:image" content="https://github.com/yeahyuanw/images/blob/master/kdtree4.png?raw=true">
+<meta property="og:image" content="https://github.com/yeahyuanw/images/blob/master/kdtree5.png?raw=true">
+<meta property="og:updated_time" content="2018-01-03T07:33:29.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k近邻算法">
+<meta name="twitter:description" content="简介k近邻(KNN)是一种基本的分类算法. 可以多分类. 分类时, 对新的样本, 根据其k个最邻近的训练样本的类别通过投票等规则来进行预测. KNN并没有显示的学习过程, 更像是通过统计来确定实例的类别.
+KNN的三个基本要素是: k值的选取, 距离度量, 分类决策规则.
+如果训练样本较多, 每当来一个新的样本, 则需要计算新样本与所有训练样本的距离, 然后取k个距离最近的训练样本来进行决策分类.">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> k近邻算法 | yeah's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yeah's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">y e a h~</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                k近邻算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-08T13:40:23+08:00" content="2017-01-08">
+              2017-01-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/08/k近邻算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/08/k近邻算法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h1><p>k近邻(KNN)是一种基本的分类算法. 可以多分类. 分类时, 对新的样本, 根据其k个最邻近的训练样本的类别通过投票等规则来进行预测. KNN并没有显示的学习过程, 更像是通过统计来确定实例的类别.</p>
+<p>KNN的三个基本要素是: k值的选取, 距离度量, 分类决策规则.</p>
+<p>如果训练样本较多, 每当来一个新的样本, 则需要计算新样本与所有训练样本的距离, 然后取k个距离最近的训练样本来进行决策分类. 这种线性的计算在训练样本很大的时候需要花费较多的时间. 因此, 需要考虑快速的进行k近邻搜索.</p>
+<h1 id="kd_tree"><a href="#kd_tree" class="headerlink" title="kd tree"></a>kd tree</h1><p>kd树是对k维空间中的样本进行存储以便于对其进行快速检索的数据结构. kd树是二叉树, 表示对k维空间的划分.</p>
+<h2 id="kd_u6811_u7684_u6784_u9020"><a href="#kd_u6811_u7684_u6784_u9020" class="headerlink" title="kd树的构造"></a>kd树的构造</h2><p><img src="https://github.com/yeahyuanw/images/blob/master/kdtree1.png?raw=true" height="200" width="300"><br><img src="https://github.com/yeahyuanw/images/blob/master/kdtree2.png?raw=true" height="200" width="300"><br><img src="https://github.com/yeahyuanw/images/blob/master/kdtree3.png?raw=true" height="200" width="300"><br><img src="https://github.com/yeahyuanw/images/blob/master/kdtree4.png?raw=true" height="200" width="300"><br><img src="https://github.com/yeahyuanw/images/blob/master/kdtree5.png?raw=true" height="200" width="300"></p>
+<p>kd树的构造采用递归的方式, 每次抽取样本特征空间中的一维 $x_i$ , 取样本在 $x_i$ 的中位数, 对所有样本进行划分, 则得到了两批子样本, 然后再取特征空间的另一维 $x_j$ , 重复上述步骤, 直到子样本为null. 具体的伪代码如下:</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function kdtree(data[][], depth) &#123;</span><br><span class="line">	if(data == null) return null</span><br><span class="line"></span><br><span class="line">	n = data.length //sample size</span><br><span class="line">	m = data[<span class="number">0</span>].length //eigenspace dimensions</span><br><span class="line"></span><br><span class="line">	axis = depth mod m //select axis based on depth</span><br><span class="line"></span><br><span class="line">	median = data[:][axis]; //the median of data[:][axis]</span><br><span class="line"></span><br><span class="line">	//create <span class="keyword">node</span><span class="identifier"> </span><span class="title">and</span> construct subtree</span><br><span class="line">	<span class="keyword">node</span>.<span class="identifier"></span><span class="title">location</span> = median</span><br><span class="line">	<span class="keyword">node</span>.<span class="identifier"></span><span class="title">point</span> =</span><br><span class="line">	<span class="keyword">node</span>.<span class="identifier"></span><span class="title">axis</span> = axis</span><br><span class="line">	<span class="keyword">node</span>.<span class="identifier"></span><span class="title">leftChild</span> = kdtree([d <span class="operator">in</span> data if d[axis] <span class="tag">&lt; median ], depth+1)</span><br><span class="line">	node.rightChild = kdtre([d in data if d[axis] &gt;</span> median ], depth+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	return <span class="keyword">node</span><span class="identifier"></span><br><span class="line"></span><span class="title">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>The worst-case Time Complexity is $O(dn \log n)$, The Space Complexity is $O(dn)$. The $d$ is the depth.</p>
+<h2 id="kd_u6811_u7684_u641C_u7D22"><a href="#kd_u6811_u7684_u641C_u7D22" class="headerlink" title="kd树的搜索"></a>kd树的搜索</h2><p>首先考虑最邻近的搜索过程, 然后再基于最邻近搜索来实现k邻近的搜索.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/统计机器学习/" rel="tag">#统计机器学习</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/18/感知机-md/" rel="next" title="感知机">
+                <i class="fa fa-chevron-left"></i> 感知机
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/22/朴素贝叶斯法/" rel="prev" title="朴素贝叶斯分类器和AdaBoost">
+                朴素贝叶斯分类器和AdaBoost <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/08/k近邻算法/"
+           data-title="k近邻算法" data-url="http://yoursite.com/2017/01/08/k近邻算法/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://raw.githubusercontent.com/yeahyuanw/images/master/007.JPG"
+               alt="yeahyuanw" />
+          <p class="site-author-name" itemprop="name">yeahyuanw</p>
+          <p class="site-description motion-element" itemprop="description">没有更多介绍...</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ws.nju.edu.cn/" title="websoft" target="_blank">websoft</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://leetcode.com/yeahyuanw/" title="leetcode" target="_blank">leetcode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ws.nju.edu.cn/blog/" title="websoft技术博客" target="_blank">websoft技术博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u7B80_u4ECB"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kd_tree"><span class="nav-number">2.</span> <span class="nav-text">kd tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kd_u6811_u7684_u6784_u9020"><span class="nav-number">2.1.</span> <span class="nav-text">kd树的构造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kd_u6811_u7684_u641C_u7D22"><span class="nav-number">2.2.</span> <span class="nav-text">kd树的搜索</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ywang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yeahyuanw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
